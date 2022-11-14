@@ -7,7 +7,6 @@ const startAudio = new Audio('assets/audio/start.mp3')
 const clickSound = new Audio('assets/audio/click.mp3')
 
 
-
 turnOnBtn.addEventListener('click', function(e) {
     if (lcdDisplay.classList.contains('noDisplay') == true) {
         lcdDisplay.classList.remove('noDisplay')
@@ -27,4 +26,21 @@ function clearDisplay() {
     } else {
         return
     }
+}
+
+
+function add(a, b) {
+    return a + b
+}
+function substract(a, b) {
+    return a - b
+}
+function multiply(a, b) {
+    return a * b
+}
+function divide(a, b) {
+    return a / b
+}
+function operate(operator, a, b) {
+    return operator(a, b)
 }
