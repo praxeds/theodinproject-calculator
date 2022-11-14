@@ -13,16 +13,16 @@
 <body>
     <main>
         <section id="display">
-            <p>00000000</p>
-            <p id="calcOutput">523957</p>
+            <p id="lcdDisplay" class="noDisplay">00000000</p>
+            <p id="calcOutput"></p>
         </section>
 
         <section id="row1" class="numRow">
-            <div class="calcBtn">
+            <div class="calcBtn" id="turnOnBtn">
                 <span class="btnText">ON</span>
             </div>
-            <div class="calcBtn">
-                <span class="btnText">√</span>
+            <div class="calcBtn" id="clearBtn">
+                <span class="btnText">C</span>
             </div>
             <div class="calcBtn">
                 <span class="btnText">%</span>
@@ -96,6 +96,7 @@
             </section>
         </section>
     </main>
+    <script src="script.js"></script>
 </body>
 
 </html>

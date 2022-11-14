@@ -21,16 +21,26 @@
 
 /* !Color Palette */
 :root {
-    --baseColor: #131313;
-    --baseColorDarker: #0c0c0c;
-    --baseColorLighter: #1a1a1a;
+    --baseColor:         #131313;
+    --baseColorDarker:   #0c0c0c;
+    --baseColorLighter:  #1a1a1a;
     --baseColorLightest: #252525;
-    --accentColor1: #82ff04;
-    --accentColor2: rgb(255, 0, 123);
+    --accentColor1:      #82ff04;
+    --accentColor2:      #ff007b;
 }
 
 
 /* ! */
+::-moz-selection { 
+    color: var(--baseColor);
+    background: var(--accentColor1);
+  }
+  
+  ::selection { 
+    color: var(--baseColor);
+    background: var(--accentColor1);
+  }
+
 main {
     width: 100vw;
     height: 100vh;
@@ -40,6 +50,9 @@ p {
     margin: 0;
 }
 
+.noDisplay {
+    display: none;
+}
 
 /* 
 ?Display Section
@@ -111,6 +124,7 @@ main>section {
 .calcBtn, .plusBtn {
     color: white;
     font-size: 10vmin;
+    cursor: pointer;
 }
 
 .calcBtn:hover, .plusBtn:hover {
