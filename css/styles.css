@@ -1,20 +1,20 @@
 /*! Fonts */
 @font-face {
     font-family: 'The Bold Font';
-    src: url('assets/fonts/The Bold Font/TheBoldFont-Bold.woff2') format('woff2'),
-        url('assets/fonts/The Bold Font/TheBoldFont-Bold.woff') format('woff'),
-        url('assets/fonts/The Bold Font/TheBoldFont-Bold.ttf') format('truetype');
+    src: url('/assets/fonts/The Bold Font/TheBoldFont-Bold.woff2') format('woff2'),
+        url('/assets/fonts/The Bold Font/TheBoldFont-Bold.woff') format('woff'),
+        url('/assets/fonts/The Bold Font/TheBoldFont-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'E1234';
-    src: url('assets/fonts/e1234/E1234.woff2') format('woff2'),
-        url('assets/fonts/e1234/E1234.woff') format('woff'),
-        url('assets/fonts/e1234/E1234.ttf') format('truetype');
-    font-weight: normal;
+    font-family: 'Digital Display';
+    src: url('/assets/fonts/Digital Display/Digital-Display.woff2') format('woff2'),
+        url('/assets/fonts/Digital Display/Digital-Display.woff') format('woff'),
+        url('/assets/fonts/Digital Display/Digital-Display.ttf') format('truetype');
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
@@ -23,11 +23,12 @@
 :root {
     --baseColor: #000117;
     --baseColorLighter: #00022a;
-    --accentColor1: #ffc500;
-    --accentColor1: #ff00ff;
+    --baseColorLightest: #0a0d39;
     --accentColor1: #13a8fe;
-  }
-  
+    --accentColor2: #ff00ff;
+    --accentColor3: #ffc500;
+}
+
 
 /* ! */
 main {
@@ -35,17 +36,97 @@ main {
     height: 100vh;
 }
 
-main > section {
+
+/* 
+?Display Section
+ */
+#display {
+    position: relative;
+    background-color: var(--baseColorLighter);
+}
+
+p {
+    margin: 0;
+    color: white;
+}
+
+span {
+    color: white;
+}
+
+
+
+/* 
+?Buttons
+ */
+.calcBtn {
+    width: 25%;
+    height: 100%;
+    position: relative;
+}
+
+.btnText {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'The Bold Font', Arial, Helvetica, sans-serif;
+    font-size: 10vmin;
+}
+
+
+
+/* 
+?Rows 1, 2, 3
+ */
+main>section {
     height: 16.666%;
     width: 100%;
     background-color: var(--baseColor);
 }
 
-main > section:last-of-type {
+.numRow {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+/* 
+?Row 4
+ */
+main>section:last-of-type {
     height: 33.33%;
     width: 100%;
 }
 
-#display {
-    background-color: var(--baseColorLighter);
+#row4 {
+    display: flex;
+    flex-direction: row;
+}
+
+.numCol {
+    width: 75%;
+    height: 100%;
+}
+
+.numCol>.numRow {
+    width: 100%;
+    height: 50%;
+}
+
+.numCol>.numRow>.calcBtn {
+    width: 33.333%;
+}
+
+.plusCol {
+    width: 25%;
+    height: 100%;
+}
+
+.plusBtn {
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
