@@ -21,12 +21,12 @@
 
 /* !Color Palette */
 :root {
-    --baseColor: #000117;
-    --baseColorLighter: #00022a;
-    --baseColorLightest: #0a0d39;
-    --accentColor1: #13a8fe;
-    --accentColor2: #ff00ff;
-    --accentColor3: #ffc500;
+    --baseColor: #131313;
+    --baseColorDarker: #0c0c0c;
+    --baseColorLighter: #1a1a1a;
+    --baseColorLightest: #252525;
+    --accentColor1: #82ff04;
+    --accentColor2: rgb(255, 0, 123);
 }
 
 
@@ -34,6 +34,10 @@
 main {
     width: 100vw;
     height: 100vh;
+}
+
+p {
+    margin: 0;
 }
 
 
@@ -45,15 +49,26 @@ main {
     background-color: var(--baseColorLighter);
 }
 
-p {
-    margin: 0;
-    color: white;
+#display > p {
+    font-family: 'Digital Display', monospace;
+    font-size: 26vmin;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
-span {
-    color: white;
+#display > p:first-of-type {
+    color: var(--baseColorLightest);
 }
 
+#display > p:last-of-type {
+    color: var(--accentColor2);
+    text-align: right;
+    transform: translate(-53.5%, -50%);
+}
 
 
 /* 
@@ -71,7 +86,6 @@ span {
     top: 50%;
     transform: translate(-50%, -50%);
     font-family: 'The Bold Font', Arial, Helvetica, sans-serif;
-    font-size: 10vmin;
 }
 
 
@@ -90,8 +104,20 @@ main>section {
     flex-direction: row;
 }
 
+#row1>.calcBtn:nth-of-type(1)>.btnText {
+    color: var(--accentColor1);
+}
 
+.calcBtn, .plusBtn {
+    color: white;
+    font-size: 10vmin;
+}
 
+.calcBtn:hover, .plusBtn:hover {
+    color: var(--accentColor1);
+    font-size: 11vmin;
+    transition: all 0.4s;
+}
 
 /* 
 ?Row 4
