@@ -173,7 +173,7 @@ main>section:last-of-type {
     height: 100%;
 }
 
-.plusBtn {
+#plusBtn {
     width: 100%;
     height: 100%;
     position: relative;

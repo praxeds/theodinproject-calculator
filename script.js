@@ -17,7 +17,7 @@ turnOnBtn.addEventListener('click', turnOnDisplay)
 clearBtn.addEventListener('click', clearDisplay)
 calcOutput.addEventListener('transitionend', removeTransition)
 
-window.addEventListener('keydown', function(e) {
+window.addEventListener('keydown', function (e) {
     const key = e.key
     useCalculator(key)
 })
@@ -76,40 +76,71 @@ function removeTransition(e) {
 
 function useCalculator(button) {
     // console.log(button)
-
     if (lcdDisplay.classList.contains('noDisplay')) return
+
+    switch (true) {
+        case (button == '+'):
+        case (button == '-'):
+        case (button == '*'):
+        case (button == '/'):
+        case (button == '÷'):
+            if (calcOutput.innerText.length > 0) {
+                displayNumber1 = calcOutput.innerHTML
+                operator = button
+                console.log('Number 1: ' + displayNumber1)
+                console.log(operator)
+            }
+    }
 
     if (button == 'Backspace') {
         const calcOutputArr = calcOutput.innerHTML.split('')
         calcOutputArr.pop()
         calcOutput.innerHTML = calcOutputArr.join('')
     }
-
-    if (calcOutput.innerText.length < 8) {
-        switch (true) {
-            case (button == ' '):
-                return
-            case (!isNaN(Number(button))):
-                calcOutput.innerHTML += button
-                break
-            case (button == '.'):
-                if (calcOutput.innerText.includes('.') == false && calcOutput.innerText.length > 0) {
-                    calcOutput.innerHTML += button
+    else if (calcOutput.innerText.length < 8) {
+        if (typeof operator == 'string' && displayNumber1 != '') {
+            if (displayNumber2 !== undefined) {
+                switch (true) {
+                    case (!isNaN(Number(button))):
+                        calcOutput.innerHTML += button
+                        break
+                    case (button == '.'):
+                        if (calcOutput.innerText.includes('.') == false && calcOutput.innerText.length > 0) {
+                            calcOutput.innerHTML += button
+                        }
+                        break
                 }
-                break
-            case (button == '%'):
-                percentage()
-            case (button == '+'):
-            case (button == '-'):
-            case (button == '*'):
-            case (button == '/'):
-            case (button == '÷'):
-                displayNumber1 = calcOutput.innerHTML
-                operator = button
-                console.log(displayNumber1)
-                console.log(operator)
-
+                displayNumber2 = calcOutput.innerHTML
+                console.log('Number 2: ' + displayNumber2)
+            }
+            else if (calcOutput.innerText !== '') {
+                switch (true) {
+                    case (!isNaN(Number(button))):
+                        calcOutput.innerHTML = ''
+                        calcOutput.innerHTML += button
+                        displayNumber2 = calcOutput.innerHTML
+                        console.log('Number 2: ' + displayNumber2)
+                        break
+                }
+            }
+        } else {
+            switch (true) {
+                case (button == ' '):
+                    return
+                case (!isNaN(Number(button))):
+                    calcOutput.innerHTML += button
+                    break
+                case (button == '.'):
+                    if (calcOutput.innerText.includes('.') == false && calcOutput.innerText.length > 0) {
+                        calcOutput.innerHTML += button
+                    }
+                    break
+                case (button == '%'):
+                    percentage()
+            }
         }
+
+
     }
     calcOutput.classList.add('selected')
     clickSound.play()
