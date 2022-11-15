@@ -21,12 +21,13 @@
 
 /* !Color Palette */
 :root {
-    --baseColor:         #131313;
-    --baseColorDarker:   #0c0c0c;
-    --baseColorLighter:  #1a1a1a;
-    --baseColorLightest: #252525;
-    --accentColor1:      #82ff04;
-    --accentColor2:      #ff007b;
+    --baseColor:                #131313;
+    --baseColorDarker:          #0c0c0c;
+    --baseColorLighter:         #1a1a1a;
+    --baseColorLightest:        #252525;
+    --accentColor1:             #82ff04;
+    --accentColor2:             #ff007b;
+    --accentColor2Lighter:      #bc085f;
 }
 
 
@@ -83,6 +84,13 @@ p {
     transform: translate(-53.5%, -50%);
 }
 
+#calcOutput {
+    transition: all 0.1s;
+}
+
+.selected {
+    color: var(--accentColor2Lighter) !important;
+}
 
 /* 
 ?Buttons
