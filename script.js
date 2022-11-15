@@ -7,13 +7,26 @@ const calcBtns = document.querySelectorAll('.calcBtn')
 const startAudio = new Audio('assets/audio/start.mp3')
 const clickSound = new Audio('assets/audio/click.mp3')
 
+let displayNumber1
+let displayNumber2
+let operator
 
 
 
-window.addEventListener('keydown', keyboardInput)
 turnOnBtn.addEventListener('click', turnOnDisplay)
 clearBtn.addEventListener('click', clearDisplay)
 calcOutput.addEventListener('transitionend', removeTransition)
+
+window.addEventListener('keydown', function(e) {
+    const key = e.key
+    useCalculator(key)
+})
+for (const button of calcBtns) {
+    button.addEventListener('click', function (e) {
+        const buttonInput = e.path[0].innerText
+        useCalculator(buttonInput)
+    })
+}
 
 
 function add(a, b) {
@@ -57,76 +70,48 @@ function clearDisplay() {
     }
 }
 
-function keyboardInput(key) {
+function removeTransition(e) {
+    this.classList.remove('selected')
+}
+
+function useCalculator(button) {
+    // console.log(button)
+
     if (lcdDisplay.classList.contains('noDisplay')) return
 
-    if (key.key == 'Backspace') {
+    if (button == 'Backspace') {
         const calcOutputArr = calcOutput.innerHTML.split('')
         calcOutputArr.pop()
         calcOutput.innerHTML = calcOutputArr.join('')
     }
 
     if (calcOutput.innerText.length < 8) {
-        // if (key.key == '/' || key.key == '*' || key.key == '-' || key.key == '+' || key.key == '=' || key.key == 'Enter') {
-        // }
-
         switch (true) {
-            case (key.key == ' '):
+            case (button == ' '):
                 return
-            case (!isNaN(Number(key.key))):
-                calcOutput.innerHTML += key.key
+            case (!isNaN(Number(button))):
+                calcOutput.innerHTML += button
                 break
-            case (key.key == '.'):
+            case (button == '.'):
                 if (calcOutput.innerText.includes('.') == false && calcOutput.innerText.length > 0) {
-                    calcOutput.innerHTML += key.key
+                    calcOutput.innerHTML += button
                 }
                 break
-            case (key.key == '%'):
+            case (button == '%'):
                 percentage()
+            case (button == '+'):
+            case (button == '-'):
+            case (button == '*'):
+            case (button == '/'):
+            case (button == '÷'):
+                displayNumber1 = calcOutput.innerHTML
+                operator = button
+                console.log(displayNumber1)
+                console.log(operator)
 
         }
     }
     calcOutput.classList.add('selected')
     clickSound.play()
     clickSound.currentTime = 0
-}
-
-function removeTransition(e) {
-    this.classList.remove('selected')
-}
-
-for (const button of calcBtns) {
-    button.addEventListener('click', function (e) {
-        const buttonInput = e.path[0].innerText
-        console.log(buttonInput)
-
-        if (lcdDisplay.classList.contains('noDisplay')) return
-
-        if (buttonInput == 'Backspace') {
-            const calcOutputArr = calcOutput.innerHTML.split('')
-            calcOutputArr.pop()
-            calcOutput.innerHTML = calcOutputArr.join('')
-        }
-
-        if (calcOutput.innerText.length < 8) {
-            switch (true) {
-                case (buttonInput == ' '):
-                    return
-                case (!isNaN(Number(buttonInput))):
-                    calcOutput.innerHTML += buttonInput
-                    break
-                case (buttonInput == '.'):
-                    if (calcOutput.innerText.includes('.') == false && calcOutput.innerText.length > 0) {
-                        calcOutput.innerHTML += buttonInput
-                    }
-                    break
-                case (buttonInput == '%'):
-                    percentage()
-
-            }
-        }
-        calcOutput.classList.add('selected')
-        clickSound.play()
-        clickSound.currentTime = 0
-    })
 }
