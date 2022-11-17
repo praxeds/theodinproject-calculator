@@ -84,6 +84,7 @@ function useCalculator(button) {
         case ('='):
         case ('Enter'):
             //              ! Calculating the user's numbers
+            console.log(displayNumber1, operatorSymbol, displayNumber2)
             getResult()
     }
     if (button == 'Backspace') {
@@ -98,6 +99,7 @@ function useCalculator(button) {
                 switch (true) {
                     case (!isNaN(Number(button))):
                         calcOutput.innerHTML += button
+                        displayNumber2 = Number(calcOutput.innerHTML)
                         break
                     case (button == '.'):
                         if (calcOutput.innerText.includes('.') == false && calcOutput.innerText.length > 0) {
@@ -110,6 +112,7 @@ function useCalculator(button) {
                     case (button == '/'):
                     case (button == '÷'):
                         // console.log(displayNumber1 + operatorSymbol + displayNumber2)
+                        console.log(displayNumber1, operatorSymbol, displayNumber2)
                         getResult()
                         keyOperator = document.querySelector(`div[data-key="${button}"]`).classList[1]
 
@@ -151,8 +154,10 @@ function useCalculator(button) {
 }
 
 function getResult () {
-    if (displayNumber1 != undefined && displayNumber2 != undefined) {
-        console.log(displayNumber1, operatorSymbol, displayNumber2)
+    if (keyOperator === 'divide' && displayNumber2 == 0) {
+        calcOutput.innerHTML = 'nope'
+    }
+    else if (displayNumber1 != undefined && displayNumber2 != undefined) {
         switch (keyOperator) {
             case ('add'):
                 result = displayNumber1 + displayNumber2
@@ -167,6 +172,7 @@ function getResult () {
                 result = displayNumber1 / displayNumber2
                 break
         }
+        // console.log(displayNumber1, operatorSymbol, displayNumber2)
         // console.log(result)
         resultArr = String(result).split('')
         if (resultArr.length > 8) {
