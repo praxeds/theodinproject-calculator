@@ -9,8 +9,10 @@ const clickSound = new Audio('assets/audio/click.mp3')
 
 let displayNumber1
 let displayNumber2
-let operator
-
+let operatorSymbol
+let keyOperator
+let result
+let resultArr
 
 
 turnOnBtn.addEventListener('click', turnOnDisplay)
@@ -19,6 +21,7 @@ calcOutput.addEventListener('transitionend', removeTransition)
 
 window.addEventListener('keydown', function (e) {
     const key = e.key
+    // console.log(key)
     useCalculator(key)
 })
 for (const button of calcBtns) {
@@ -29,29 +32,12 @@ for (const button of calcBtns) {
 }
 
 
-function add(a, b) {
-    return a + b
-}
-function substract(a, b) {
-    return a - b
-}
-function multiply(a, b) {
-    return a * b
-}
-function divide(a, b) {
-    return a / b
-}
 function percentage() {
     if (calcOutput.innerText.length < 5) {
         calcOutput.innerText = Number(calcOutput.innerText) / 100
     }
 
 }
-
-function operate(operator, a, b) {
-    return operator(a, b)
-}
-
 
 function turnOnDisplay() {
     if (lcdDisplay.classList.contains('noDisplay') == true) {
@@ -64,10 +50,11 @@ function turnOnDisplay() {
 
 function clearDisplay() {
     if (calcOutput.innerText !== '') {
+        displayNumber1 = undefined
+        displayNumber2 = undefined
+        operatorSymbol = undefined
         calcOutput.innerText = ''
-    } else {
-        return
-    }
+    } else return
 }
 
 function removeTransition(e) {
@@ -75,30 +62,66 @@ function removeTransition(e) {
 }
 
 function useCalculator(button) {
-    // console.log(button)
     if (lcdDisplay.classList.contains('noDisplay')) return
 
-    switch (true) {
-        case (button == '+'):
-        case (button == '-'):
-        case (button == '*'):
-        case (button == '/'):
-        case (button == '÷'):
-            if (calcOutput.innerText.length > 0) {
-                displayNumber1 = calcOutput.innerHTML
-                operator = button
+    switch (button) {
+        case ('+'):
+        case ('-'):
+        case ('*'):
+        case ('/'):
+        case ('÷'):
+            //              ! Getting the user's first number
+            if (calcOutput.innerText.length > 0 && displayNumber2 === undefined) {
+                displayNumber1 = Number(calcOutput.innerHTML)
+                operatorSymbol = button
                 console.log('Number 1: ' + displayNumber1)
-                console.log(operator)
+                // console.log(operatorSymbol)
+                //              ! Getting the user's chosen operator
+                keyOperator = document.querySelector(`div[data-key="${button}"]`).classList[1]
+                console.log(keyOperator)
+            }
+            break
+        case ('='):
+        case ('Enter'):
+            //              ! Calculating the user's numbers
+            if (displayNumber1 != undefined && displayNumber2 != undefined) {
+                console.log(displayNumber1, operatorSymbol, displayNumber2)
+                switch (keyOperator) {
+                    case ('add'):
+                        result = displayNumber1 + displayNumber2
+                        break
+                    case ('substract'):
+                        result = displayNumber1 - displayNumber2
+                        break
+                    case ('multiply'):
+                        result = displayNumber1 * displayNumber2
+                        break
+                    case ('divide'):
+                        result = displayNumber1 / displayNumber2
+                        break
+                }
+                console.log(result)
+                resultArr = String(result).split('')
+                if (resultArr.length > 8) {
+                    calcOutput.innerHTML = resultArr.slice(0, 5).join('')
+                } else {
+                    calcOutput.innerHTML = result
+                }
+                
+                displayNumber1 = result
+                displayNumber2 = undefined
+                keyOperator = undefined
+                break
             }
     }
-
     if (button == 'Backspace') {
         const calcOutputArr = calcOutput.innerHTML.split('')
         calcOutputArr.pop()
         calcOutput.innerHTML = calcOutputArr.join('')
     }
     else if (calcOutput.innerText.length < 8) {
-        if (typeof operator == 'string' && displayNumber1 != '') {
+        if (typeof operatorSymbol == 'string' && displayNumber1 != '') {
+            //              ! Getting the user's second number
             if (displayNumber2 !== undefined) {
                 switch (true) {
                     case (!isNaN(Number(button))):
@@ -109,18 +132,24 @@ function useCalculator(button) {
                             calcOutput.innerHTML += button
                         }
                         break
+                    case (button == '+'):
+                    case (button == '-'):
+                    case (button == '*'):
+                    case (button == '/'):
+                    case (button == '÷'):
+                        displayNumber2 = Number(calcOutput.innerHTML)
+                        console.log(displayNumber1 + operatorSymbol + displayNumber2)
                 }
-                displayNumber2 = calcOutput.innerHTML
-                console.log('Number 2: ' + displayNumber2)
             }
             else if (calcOutput.innerText !== '') {
                 switch (true) {
                     case (!isNaN(Number(button))):
-                        calcOutput.innerHTML = ''
-                        calcOutput.innerHTML += button
-                        displayNumber2 = calcOutput.innerHTML
+                        calcOutput.innerHTML = button
+                        displayNumber2 = Number(calcOutput.innerHTML)
                         console.log('Number 2: ' + displayNumber2)
                         break
+                    case (button == '%'):
+                        percentage()
                 }
             }
         } else {

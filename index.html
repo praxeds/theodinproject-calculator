@@ -13,7 +13,7 @@
 <body>
     <main>
         <section id="display">
-            <p id="lcdDisplay" class="noDisplay">00000000</p>
+            <p id="lcdDisplay" class="noDisplay">88888888</p>
             <p id="calcOutput"></p>
         </section>
 
@@ -27,8 +27,8 @@
             <div class="calcBtn">
                 <span class="btnText">%</span>
             </div>
-            <div class="calcBtn">
-                <span class="btnText">÷</span>
+            <div class="calcBtn divide" data-key="/">
+                <span class="btnText">/</span>
             </div>
         </section>
 
@@ -42,7 +42,7 @@
             <div class="calcBtn">
                 <span class="btnText">9</span>
             </div>
-            <div class="calcBtn">
+            <div class="calcBtn multiply" data-key="*">
                 <span class="btnText">*</span>
             </div>
         </section>
@@ -57,7 +57,7 @@
             <div class="calcBtn">
                 <span class="btnText">6</span>
             </div>
-            <div class="calcBtn">
+            <div class="calcBtn substract" data-key="-">
                 <span class="btnText">-</span>
             </div>
         </section>
@@ -90,7 +90,7 @@
             </section>
 
             <section class="plusCol">
-                <div class="calcBtn" id="plusBtn">
+                <div class="calcBtn add" data-key="+" id="plusBtn">
                     <span class="btnText">+</span>
                 </div>
             </section>
