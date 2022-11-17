@@ -74,45 +74,17 @@ function useCalculator(button) {
             if (calcOutput.innerText.length > 0 && displayNumber2 === undefined) {
                 displayNumber1 = Number(calcOutput.innerHTML)
                 operatorSymbol = button
-                console.log('Number 1: ' + displayNumber1)
+                // console.log('Number 1: ' + displayNumber1)
                 // console.log(operatorSymbol)
                 //              ! Getting the user's chosen operator
                 keyOperator = document.querySelector(`div[data-key="${button}"]`).classList[1]
-                console.log(keyOperator)
+                // console.log(keyOperator)
             }
             break
         case ('='):
         case ('Enter'):
             //              ! Calculating the user's numbers
-            if (displayNumber1 != undefined && displayNumber2 != undefined) {
-                console.log(displayNumber1, operatorSymbol, displayNumber2)
-                switch (keyOperator) {
-                    case ('add'):
-                        result = displayNumber1 + displayNumber2
-                        break
-                    case ('substract'):
-                        result = displayNumber1 - displayNumber2
-                        break
-                    case ('multiply'):
-                        result = displayNumber1 * displayNumber2
-                        break
-                    case ('divide'):
-                        result = displayNumber1 / displayNumber2
-                        break
-                }
-                console.log(result)
-                resultArr = String(result).split('')
-                if (resultArr.length > 8) {
-                    calcOutput.innerHTML = resultArr.slice(0, 5).join('')
-                } else {
-                    calcOutput.innerHTML = result
-                }
-                
-                displayNumber1 = result
-                displayNumber2 = undefined
-                keyOperator = undefined
-                break
-            }
+            getResult()
     }
     if (button == 'Backspace') {
         const calcOutputArr = calcOutput.innerHTML.split('')
@@ -137,8 +109,10 @@ function useCalculator(button) {
                     case (button == '*'):
                     case (button == '/'):
                     case (button == '÷'):
-                        displayNumber2 = Number(calcOutput.innerHTML)
-                        console.log(displayNumber1 + operatorSymbol + displayNumber2)
+                        // console.log(displayNumber1 + operatorSymbol + displayNumber2)
+                        getResult()
+                        keyOperator = document.querySelector(`div[data-key="${button}"]`).classList[1]
+
                 }
             }
             else if (calcOutput.innerText !== '') {
@@ -146,7 +120,7 @@ function useCalculator(button) {
                     case (!isNaN(Number(button))):
                         calcOutput.innerHTML = button
                         displayNumber2 = Number(calcOutput.innerHTML)
-                        console.log('Number 2: ' + displayNumber2)
+                        // console.log('Number 2: ' + displayNumber2)
                         break
                     case (button == '%'):
                         percentage()
@@ -174,4 +148,36 @@ function useCalculator(button) {
     calcOutput.classList.add('selected')
     clickSound.play()
     clickSound.currentTime = 0
+}
+
+function getResult () {
+    if (displayNumber1 != undefined && displayNumber2 != undefined) {
+        console.log(displayNumber1, operatorSymbol, displayNumber2)
+        switch (keyOperator) {
+            case ('add'):
+                result = displayNumber1 + displayNumber2
+                break
+            case ('substract'):
+                result = displayNumber1 - displayNumber2
+                break
+            case ('multiply'):
+                result = displayNumber1 * displayNumber2
+                break
+            case ('divide'):
+                result = displayNumber1 / displayNumber2
+                break
+        }
+        // console.log(result)
+        resultArr = String(result).split('')
+        if (resultArr.length > 8) {
+            calcOutput.innerHTML = resultArr.slice(0, 5).join('')
+        } else {
+            calcOutput.innerHTML = result
+        }
+        
+        displayNumber1 = result
+        displayNumber2 = undefined
+        keyOperator = undefined
+        
+    }
 }
