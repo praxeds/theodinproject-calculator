@@ -178,3 +178,41 @@ main>section:last-of-type {
     height: 100%;
     position: relative;
 }
+
+footer {
+    color: white;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 1rem;
+    font-size: 0.9rem;
+    display: none;
+    gap: 0.3rem;
+}
+
+footer a:hover {
+    transform: rotate(360deg) scale(1.2);
+    transition-duration: 0.6s;
+}
+
+ion-icon {
+    color: white;
+}
+
+/* !Media Queries */
+@media (min-width: 992px) {
+    body {
+        background-color: var(--baseColor);
+    }
+    main {
+        width: 70vmin;
+        height: 100vh;
+        margin: 0 auto;
+    }
+    #display > p {
+        font-size: 18vmin;
+    }
+    footer {
+        display: flex;
+    }
+}

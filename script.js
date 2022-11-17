@@ -15,7 +15,13 @@ let result
 let resultArr
 
 
-turnOnBtn.addEventListener('click', turnOnDisplay)
+turnOnBtn.addEventListener('click', function() {
+    if (lcdDisplay.classList.contains('noDisplay')) {
+        turnOnDisplay()
+    } else {
+        clearDisplay()
+    }
+})
 clearBtn.addEventListener('click', clearDisplay)
 calcOutput.addEventListener('transitionend', removeTransition)
 
@@ -40,12 +46,8 @@ function percentage() {
 }
 
 function turnOnDisplay() {
-    if (lcdDisplay.classList.contains('noDisplay') == true) {
-        lcdDisplay.classList.remove('noDisplay')
-        startAudio.play()
-    } else {
-        return
-    }
+    lcdDisplay.classList.remove('noDisplay')
+    startAudio.play()
 }
 
 function clearDisplay() {
